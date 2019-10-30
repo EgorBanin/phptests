@@ -5,6 +5,10 @@ namespace phptests;
 interface ITestCase
 {
 
+    /**
+     * @throws AssertException
+     * @return IResult
+     */
     public function run(): IResult;
 
 }

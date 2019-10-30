@@ -6,6 +6,7 @@ return new TestGroup(
     basename(__FILE__),
     'Все тесты',
     [
-        'demo'
+        'Result/assert',
+        'ResultCollection/addResult',
     ]
 );

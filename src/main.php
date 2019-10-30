@@ -8,6 +8,9 @@ require __DIR__ . '/../vendor/autoload.php';
 //array_shift($groups);
 
 $testManager = new TestManager(__DIR__ . '/../tests/groups', __DIR__ . '/../tests/cases');
-$result = $testManager->runGroup('all', new TestRunner());
-
-echo $result;
+$results = $testManager->runGroup('all', new TestRunner());
+$printer = new ResultPrinter(STDOUT);
+array_walk($results, function (IResult $result) use($printer) {
+    $printer->print($result);
+});
+echo "\n";

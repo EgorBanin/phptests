@@ -7,6 +7,6 @@ interface ITestRunner
 
     public function runTestCase(ITestCase $tc): IResult;
 
-    public function getResult(): ResultCollection;
+    public function getResults(): array;
 
 }

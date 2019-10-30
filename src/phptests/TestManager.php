@@ -15,7 +15,7 @@ class TestManager implements ITestManager
         $this->casesDir = realpath($casesDir);
     }
 
-    public function runGroup($groupName, ITestRunner $runner): ResultCollection
+    public function runGroup($groupName, ITestRunner $runner): array
     {
         $group = $this->getTestGroup($groupName);
         foreach ($group as $caseName) {
@@ -23,7 +23,7 @@ class TestManager implements ITestManager
             $runner->runTestCase($case);
         }
 
-        return $runner->getResult();
+        return $runner->getResults();
     }
 
     public function getTestGroup($groupName): ITestGroup
