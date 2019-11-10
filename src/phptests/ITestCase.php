@@ -2,13 +2,13 @@
 
 namespace phptests;
 
-interface ITestCase
+interface ITestCase extends \JsonSerializable
 {
 
-    /**
-     * @throws AssertException
-     * @return IResult
-     */
-    public function run(): IResult;
+    public function addStep(IStep $step): ITestCase;
+
+    public function getSteps(): array;
+
+    public function run(): ITestCaseResult;
 
 }

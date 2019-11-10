@@ -2,20 +2,18 @@
 
 namespace phptests;
 
-use Throwable;
-
 class AssertException extends \Exception
 {
 
     private $result;
 
-    public function __construct(IResult $result, $message = '', $code = 0, Throwable $previous = null)
+    public function __construct(IStepResult $result, $message = '', $code = 0, \Throwable $previous = null)
     {
         $this->result = $result;
         parent::__construct($message, $code, $previous);
     }
 
-    public function getResult(): IResult
+    public function getResult(): IStepResult
     {
         return $this->result;
     }

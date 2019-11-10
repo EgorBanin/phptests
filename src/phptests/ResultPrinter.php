@@ -12,7 +12,7 @@ class ResultPrinter implements IResultPrinter
         $this->file = $file;
     }
 
-    public function print(IResult $result)
+    public function print(ITestCaseResult $result)
     {
         fprintf($this->file, '%s', $result->isOk()? '.' : 'F');
     }

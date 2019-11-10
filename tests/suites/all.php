@@ -2,11 +2,10 @@
 
 namespace phptests;
 
-return new TestGroup(
+return new Suite(
     basename(__FILE__),
     'Все тесты',
     [
         'Result/assert',
-        'ResultCollection/addResult',
     ]
 );

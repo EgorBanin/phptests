@@ -2,21 +2,32 @@
 
 namespace phptests;
 
-class Result implements IResult
+class StepResult implements IStepResult
 {
+
+    private $step;
+
+    /**
+     * @var IAssertion[]
+     */
     private $assertions = [];
 
     private $errors = [];
 
-    public static function error(string $message)
+    public function __construct(IStep $step)
     {
-        $result = new self();
+        $this->step = $step;
+    }
+
+    public static function error(IStep $step, string $message)
+    {
+        $result = new self($step);
         $result->errors[] = $message;
 
         return $result;
     }
 
-    public function assert(string $description, bool $status): IResult
+    public function assert(string $description, bool $status): IStepResult
     {
         $this->assertions[] = new Assertion($description, $status);
 
@@ -27,16 +38,11 @@ class Result implements IResult
         return $this;
     }
 
-    public function softAssert(string $description, bool $status): IResult
+    public function softAssert(string $description, bool $status): IStepResult
     {
         $this->assertions[] = new Assertion($description, $status);
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return json_encode($this->assertions, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 
     public function getAssertions(): array
@@ -47,7 +53,6 @@ class Result implements IResult
     public function isOk(): bool
     {
         $ok = true;
-        /** @var IAssertion $assertion */
         foreach ($this->assertions as $assertion) {
             if ($assertion->getStatus() === IAssertion::STATUS_FAIL) {
                 $ok = false;
@@ -58,5 +63,9 @@ class Result implements IResult
         return $ok;
     }
 
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
+    }
 
 }

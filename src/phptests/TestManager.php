@@ -15,38 +15,27 @@ class TestManager implements ITestManager
         $this->casesDir = realpath($casesDir);
     }
 
-    public function runGroup($groupName, ITestRunner $runner): array
-    {
-        $group = $this->getTestGroup($groupName);
-        foreach ($group as $caseName) {
-            $case = $this->getTestCase($caseName);
-            $runner->runTestCase($case);
-        }
-
-        return $runner->getResults();
-    }
-
-    public function getTestGroup($groupName): ITestGroup
+    public function getSuite($suiteName): ISuite
     {
         try {
-            $result = $this->load($this->groupsDir, $groupName . '.php');
+            $result = $this->load($this->groupsDir, $suiteName . '.php');
         } catch (\Exception $e) {
-            throw new \Exception('Не найдена группа ' . $groupName, 0, $e);
+            throw new \Exception('Не найдена группа ' . $suiteName, 0, $e);
         }
 
-        if ( ! ($result instanceof ITestGroup)) {
-            throw new \Exception('Не является ' . ITestGroup::class);
+        if ( ! ($result instanceof ISuite)) {
+            throw new \Exception('Не является ' . ISuite::class);
         }
 
         return $result;
     }
 
-    public function getTestCase($caseName): ITestCase
+    public function getTestCase(string $testCaseName): ITestCase
     {
         try {
-            $result = $this->load($this->casesDir, $caseName . '.php');
+            $result = $this->load($this->casesDir, $testCaseName . '.php');
         } catch (\Exception $e) {
-            throw new \Exception('Не найден кейс ' . $caseName, 0, $e);
+            throw new \Exception('Не найден кейс ' . $testCaseName, 0, $e);
         }
 
         if ( ! ($result instanceof ITestCase)) {

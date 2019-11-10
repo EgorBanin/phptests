@@ -5,6 +5,6 @@ namespace phptests;
 interface IResultPrinter
 {
 
-    public function print(IResult $result);
+    public function print(ITestCaseResult $result);
 
 }

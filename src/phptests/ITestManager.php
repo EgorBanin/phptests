@@ -5,10 +5,8 @@ namespace phptests;
 interface ITestManager
 {
 
-    public function runGroup($groupName, ITestRunner $runner): array;
+    public function getSuite(string $suiteName): ISuite;
 
-    public function getTestGroup($groupName): ITestGroup;
-
-    public function getTestCase($caseName): ITestCase;
+    public function getTestCase(string $testCaseName): ITestCase;
 
 }
